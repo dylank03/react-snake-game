@@ -1,0 +1,15 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.row{
+  display:inline-block;
+}
+
+.empty-cell{
+    margin: 15px;
+    padding: 15px;
+}
