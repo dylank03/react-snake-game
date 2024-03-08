@@ -1,21 +1,24 @@
 class SnakeClass {
     constructor(headPos){
-        this.headX = 0
-        this.headY = 0
+        this.head = [[0,0]]
+        this.length = 1
     }
     move(direction){
         if(direction === 'ArrowRight'){
-            return this.headX += 1
+            return this.head[0][0] += 1
         }
         else if(direction === 'ArrowLeft'){
-            return this.headX-= 1
+            return this.head[0][0] -= 1
         }
         else if(direction === 'ArrowDown'){
-            return this.headY += 1
+            return this.head[0][1] += 1
         }
         else if(direction === 'ArrowUp'){
-            return this.headY -= 1
+            return this.head[0][1] -= 1
         }
+    }
+    grow(){
+        return this.head
     }
 }
 
