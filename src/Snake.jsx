@@ -1,55 +1,64 @@
 import { useEffect, useState } from "react"
 import SnakeClass from "./snakeClass"
 
-const Snake = ({setGrid})=>{
-    const [snakeObj, setSnakeObj] = useState(new SnakeClass(0))
-    const [currentCount, setCurrentCount] = useState(0)
-    const [direction, setDirection] = useState('ArrowDown')
-    const [food, setFood] = useState([Math.floor(Math.random()*9), Math.floor(Math.random()*9)])
-    const[message, setMessage] = useState('')
-    const incrementCount = ()=>{
-        if(snakeObj.head[0][0] >= 0 && snakeObj.head[0][1] >= 0 && snakeObj.head[0][0] < 9 && snakeObj.head[0][1] < 9){
-            setTimeout(()=>{setCurrentCount((count)=>count+1)},1000)
-        }
-        else{
-            setMessage('Game Over!')
-        }
+const Snake = ()=>{
+    const [grid, setGrid] = useState(new Array(10).fill(0).map(row => new Array(10).fill(0)))
+    const snakeObj = new SnakeClass(0)
+    let direction = 'ArrowDown'
+    const [food, setFood] = useState({x: Math.floor(Math.random()*9), y: Math.floor(Math.random()*9)})
+
+
+    function updateGrid(){
+        setGrid((grid)=>{
+            grid = new Array(10).fill(0).map(row => new Array(10).fill(0))
+            for(let i = 0; i < snakeObj.body.length; i++){
+                grid[snakeObj.body[i].x].splice(snakeObj.body[i].y,1,'*_*')
+            }
+            grid[food.x].splice(food.y,1, '@')
+            return grid
+        })
     }
 
+    let lastRenderTime = 0
+    const snakeSpeed = 2
 
-    window.addEventListener('keydown', (event)=>{
-        setDirection(event.key)
-    })
 
-    useEffect(()=>{
-            incrementCount()
+    function main(currentTime) {
 
-            if(snakeObj.head[0][0] === food[0] && snakeObj.head[0][1] === food[1]){
-                setGrid(new Array(10).fill(0).map(row => new Array(10).fill(0)))
-                console.log(snakeObj.head[0][0], snakeObj.head[0][1])
-                setGrid((grid)=>{
-                grid[snakeObj.head[0][0]].splice(snakeObj.head[0][1], snakeObj.length, '*_*')
-                snakeObj.grow()
-                snakeObj.move(direction)
-                return grid
-                })
-                setFood([Math.floor(Math.random()*9), Math.floor(Math.random()*9)])
-            }
-            else{
-                setGrid(new Array(10).fill(0).map(row => new Array(10).fill(0)))
-                console.log(snakeObj.head[0][0], snakeObj.head[0][1])
-                setGrid((grid)=>{
-                grid[snakeObj.head[0][0]].splice(snakeObj.head[0][1], snakeObj.length, '*_*')
-                grid[food[0]].splice(food[1],1,'[]')
-                snakeObj.move(direction)
-                return grid
-                })
-            }
-
-        console.log(snakeObj.head[0][0], snakeObj.head[0][1])
+        window.addEventListener('keydown', (e)=>{
+            console.log(e.key)
+            direction = e.key
+            console.log(direction)
+        })
         
-    },[currentCount])
-    return <><h1>Snake Game</h1><h1>{message}</h1></>
+        window.requestAnimationFrame(main)
+        const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
+        if (secondsSinceLastRender < 1 / snakeSpeed) return
+        
+        snakeObj.move(direction)
+        if(snakeObj.body[0].y<=9 && snakeObj.body[0].y>=0 && snakeObj.body[0].x <= 9 && snakeObj.body[0].x >=0){
+            updateGrid()
+        }
+        lastRenderTime = currentTime
+
+      }
+
+      useEffect(()=>{
+        setGrid((grid)=>{
+            grid = new Array(10).fill(0).map(row => new Array(10).fill(0))
+            grid[snakeObj.body[0].x].splice(snakeObj.body[0].y,1,'*_*')
+            return grid
+        })
+        window.requestAnimationFrame(main)
+      },[])
+
+
+        
+    return grid.map((row, RowPos)=>{
+        return <div key={RowPos} className="row">{row.map((cell, cellPos)=>{
+            return(<h1 key = {cellPos} className="empty-cell">{cell}</h1>)
+        })}</div>
+    }) 
 }
 
 export default Snake
