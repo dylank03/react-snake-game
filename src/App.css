@@ -1,7 +1,4 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -10,14 +7,20 @@
 }
 
 .empty-cell{
-    margin: 15px;
-    padding: 15px;
+    margin: 2px;
+    padding: 2px;
 }
 
-empty-square{
+.empty-square{
     height: 50px;
-    width: 50ox;
+    width: 50px;
     background-color: aquamarine;
+}
+
+.food{
+  height: 50px;
+  width: 50px;
+  background-color: red;
 }
 
 .snake-body{
