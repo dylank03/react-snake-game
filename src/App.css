@@ -13,3 +13,15 @@
     margin: 15px;
     padding: 15px;
 }
+
+empty-square{
+    height: 50px;
+    width: 50ox;
+    background-color: aquamarine;
+}
+
+.snake-body{
+  height: 50px;
+  width: 50px;
+  background-color: blue;
+}
