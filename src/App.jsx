@@ -6,9 +6,8 @@ function App() {
 
   return (
     <>
-      <h1>Snake Game</h1>
+      <h1 className='title'>Snake Game </h1>
       <Snake/>
-      <button> Start Game</button>
     </>
   )
 }
