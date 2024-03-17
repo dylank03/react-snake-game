@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import SnakeClass from "./snakeClass"
-import Popup from 'reactjs-popup';
+
 
 const Snake = ()=>{
     const [grid, setGrid] = useState(new Array(10).fill(<div className="empty-square"/>).map(row => new Array(10).fill(<div className="empty-square"/>)))
@@ -55,7 +55,6 @@ const Snake = ()=>{
         })
 
         if(snakeObj.body[0].x === food.x && snakeObj.body[0].y === food.y){
-            //food = {x: Math.floor(Math.random()*9), y: Math.floor(Math.random()*9)} 
             generateFood()
             snakeObj.grow()
         }
