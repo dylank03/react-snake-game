@@ -8,6 +8,7 @@ const Snake = ()=>{
     const snakeObj = new SnakeClass(0)
     const [gameOver,setGameOver] = useState(false)
     const [score, setScore] = useState(snakeObj.body.length)
+    const [gameStarted, setGameStarted] = useState(false)
     let direction = ''
     let food = {x: Math.floor(Math.random()*9), y: Math.floor(Math.random()*9)}
 
@@ -38,7 +39,6 @@ const Snake = ()=>{
 
 
     function main(currentTime) {
-
         
         if(snakeObj.body[0].y<=9 && snakeObj.body[0].y>=0 && snakeObj.body[0].x <= 9 && snakeObj.body[0].x >=0 && !snakeObj.body.slice(1).some((segment)=> segment.x === snakeObj.body[0].x && segment.y === snakeObj.body[0].y)){
             window.requestAnimationFrame(main)
@@ -61,6 +61,8 @@ const Snake = ()=>{
         }
         
         snakeObj.move(direction)
+
+        
         if(snakeObj.body[0].y<=9 && snakeObj.body[0].y>=0 && snakeObj.body[0].x <= 9 && snakeObj.body[0].x >=0 && !snakeObj.body.slice(1).some((segment)=> segment.x === snakeObj.body[0].x && segment.y === snakeObj.body[0].y)){
             updateGrid()
         }
@@ -74,6 +76,7 @@ const Snake = ()=>{
 
     function startGame(){
         setGameOver(false)
+        setGameStarted(true)
         setGrid((grid)=>{
             grid = new Array(10).fill(<div className="empty-square"/>).map(row => new Array(10).fill(<div className="empty-square"/>))
             grid[snakeObj.body[0].x].splice(snakeObj.body[0].y,1,<div className="snake-body"/>)
@@ -86,7 +89,7 @@ const Snake = ()=>{
         return <div key={RowPos} className="row">{row.map((cell, cellPos)=>{
             return(<h1 key = {cellPos} className="empty-cell">{cell}</h1>)
         })}</div>
-    })}</div><div className="start-btn"><button onClick = {startGame}>Start Game</button><InstructionsPopup/></div></>
+    })}</div><div className="start-btn"><button disabled={gameStarted} onClick = {startGame}>Start Game</button><InstructionsPopup/></div></>
 
 }
 
