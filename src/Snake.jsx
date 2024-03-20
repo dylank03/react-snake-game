@@ -68,6 +68,7 @@ const Snake = ()=>{
         }
         else{
             setGameOver(true)
+            setGameStarted(false)
         }
         lastRenderTime = currentTime
 
