@@ -1,6 +1,6 @@
 import './App.css'
 import Snake from './Snake'
-import InstructionsPopup from "./InstructionsPopup";
+
 
 function App() {
 

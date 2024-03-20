@@ -4,39 +4,18 @@ import Popup from 'reactjs-popup';
 function InstructionsPopup() {
 
   return <Popup
-    trigger={<button className="button"> Open Modal </button>}
+    trigger={<button className="button"> How to Play </button>}
     modal
     nested
   >
     {close => (
       <div className="modal">
-        <button className="close" onClick={close}>
-          &times;
-        </button>
-        <div className="header"> Modal Title </div>
+        <div className="header"> How to Play </div>
         <div className="content">
           {' '}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
-          Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
-          delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
-          commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
-          explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
+          Press the "Start Game" button and then use the arrow keys to move the snake (green squares). If the snake's head hits the wall of the grid or runs into itself it's game over. Eating the food (red squares) will cause the snake to grow and add a point to your score but also make the game increasingly difficult. Enjoy!
         </div>
         <div className="actions">
-          <Popup
-            trigger={<button className="button"> Trigger </button>}
-            position="top center"
-            nested
-          >
-            <span>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
-              magni omnis delectus nemo, maxime molestiae dolorem numquam
-              mollitia, voluptate ea, accusamus excepturi deleniti ratione
-              sapiente! Laudantium, aperiam doloribus. Odit, aut.
-            </span>
-          </Popup>
           <button
             className="button"
             onClick={() => {

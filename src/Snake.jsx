@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import SnakeClass from "./snakeClass"
+import InstructionsPopup from "./InstructionsPopup";
 
 
 const Snake = ()=>{
@@ -49,7 +50,7 @@ const Snake = ()=>{
         setScore(snakeObj.body.length)
         window.addEventListener('keydown', (e)=>{
             e.preventDefault()
-            if(e.key !== oppositeDirections[direction] && validDirections.includes(e.key)){
+            if(e.key !== oppositeDirections[snakeObj.direction] && validDirections.includes(e.key)){
                 direction = e.key
             }
         })
@@ -58,7 +59,7 @@ const Snake = ()=>{
             generateFood()
             snakeObj.grow()
         }
-
+        
         snakeObj.move(direction)
         if(snakeObj.body[0].y<=9 && snakeObj.body[0].y>=0 && snakeObj.body[0].x <= 9 && snakeObj.body[0].x >=0 && !snakeObj.body.slice(1).some((segment)=> segment.x === snakeObj.body[0].x && segment.y === snakeObj.body[0].y)){
             updateGrid()
@@ -81,11 +82,11 @@ const Snake = ()=>{
         window.requestAnimationFrame(main)
     }
         
-    return <>{gameOver && <h1>Game Over</h1>}<h2 className="score">{String(score).padStart(3, '0')}</h2><div className="grid">{grid.map((row, RowPos)=>{
+    return <>{gameOver && <h1 className="game-over">Game Over!</h1>}<h2 className="score">{String(score).padStart(3, '0')}</h2><div className="grid">{grid.map((row, RowPos)=>{
         return <div key={RowPos} className="row">{row.map((cell, cellPos)=>{
             return(<h1 key = {cellPos} className="empty-cell">{cell}</h1>)
         })}</div>
-    })}</div><div className="start-btn"><button onClick = {startGame}>Start Game</button></div></>
+    })}</div><div className="start-btn"><button onClick = {startGame}>Start Game</button><InstructionsPopup/></div></>
 
 }
 

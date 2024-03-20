@@ -1,8 +1,10 @@
 class SnakeClass {
     constructor(headPos){
         this.body = [{x:0, y:0}]
+        this.direction = 'ArrowDown'
     }
     move(direction){
+        this.direction = direction
         for(let i = this.body.length-1; i >= 1; i--){
 
             this.body[i] = {...this.body[i-1]}
